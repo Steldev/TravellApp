@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}{{ user.username }} | Profile{% endblock %}
+{% block external %}
+
+{% endblock %}
+
+{% block head %}{{ user.username }} | Profile{% endblock %}
+
+{% block content %}
+    <div class="inf">
+
+    <h2> Name: {{ user.username }} </h2>
+        <img src="{{ user.userinfo.big_photo.url}}" height="200" width="300"/>
+        <p>Status: {{ status}}</p>
+        <p>Country: {{ user.userinfo.country }}</p>
+        {% if user.userinfo.city %}
+            <p>City: {{ user.userinfo.city }}</p>
+        {% endif %}
+         {% if user.userinfo.phone_num %}
+            <p>Phone: {{ user.userinfo.phone_num }}</p>
+        {% endif %}
+
+    </div>
+
+{% endblock %}
