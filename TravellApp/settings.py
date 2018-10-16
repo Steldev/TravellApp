@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'UserProfile.apps.UserprofileConfig',
     'Authentication',
     'Chat',
+    'HouseSearch',
 ]
 
 MIDDLEWARE = [

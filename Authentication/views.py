@@ -56,9 +56,9 @@ def information_page(request):
 
     if request.method == 'POST':
         if user_info:
-            form = InformationForm(request.POST, instance=user_info)
+            form = InformationForm(request.POST, request.FILES, instance=user_info)
         else:
-            form = InformationForm(request.POST)
+            form = InformationForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/user/')

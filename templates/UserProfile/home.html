@@ -21,6 +21,13 @@
             <p>Phone: {{ user.userinfo.phone_num }}</p>
         {% endif %}
 
+        {% if f %}
+            {% for u in f %}
+                <p> {{ f }} </p>
+            {% endfor %}
+        {% else %}
+            hdhdhdhd
+        {% endif %}
     </div>
 
 {% endblock %}

@@ -35,8 +35,8 @@ class UserInfo(models.Model):
     registration = models.DateField(auto_now_add=True)
     last_visit = models.DateTimeField(auto_now=True)
     big_photo = models.ImageField(upload_to='user_photo/',
-                                  blank=True)
-
+                                  blank=True,
+                                  default='def_user_photo.png')
 
 class Note(models.Model):
     user = models.ForeignKey(User, on_delete='Cascade')
@@ -44,8 +44,10 @@ class Note(models.Model):
     date_public = models.DateTimeField(auto_now_add=True)
 
 
-class Attachment(models.Model):
+def get_upload_file_way(type):
+    return 'user_files/%s/' % type
 
+class Attachment(models.Model):
     FILE_TYPE = (
         ('IM', 'фото'),
         ('VD', 'видео'),
@@ -56,8 +58,4 @@ class Attachment(models.Model):
     note = models.ForeignKey(Note, on_delete='Cascade')
     type = models.CharField(max_length=2,
                             choices=FILE_TYPE)
-    file = models.FileField(upload_to='user_files/%s/' % type)
-
-
-
-
+    file = models.FileField(upload_to='user_files/%s/' % 'img')

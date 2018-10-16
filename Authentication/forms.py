@@ -71,6 +71,6 @@ class InformationForm(forms.ModelForm):
             'country': forms.TextInput,
             'city': forms.TextInput,
             'info': forms.Textarea,
-            'photo': forms.FileInput,
+            'big_photo': forms.FileInput(),
        }
 

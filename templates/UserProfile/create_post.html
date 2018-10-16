@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}{{ user.username }} | Create post{% endblock %}
+{% block external %}
+
+{% endblock %}
+
+{% block head %}{{ user.username }} | Create post{% endblock %}
+
+{% block content %}
+    <form action="" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        {{ form_note.as_p }}
+        {{ form_attach.as_p }}
+        <input type="submit" value="Create"/>
+    </form>
+
+
+
+    </form>
+{% endblock %}

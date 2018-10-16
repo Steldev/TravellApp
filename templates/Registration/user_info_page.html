@@ -4,10 +4,84 @@
 
 {% block head %}User Information{% endblock %}
 
+
+
 {% block content %}
     <form method="post" action="">
         {% csrf_token %}
-        {{ form.as_p }}
+
+        {{ form.non_field_errors }}
+        <div class="InfoForm">
+
+            <div class="fieldWrapper">
+                {{ form.gender.errors }}
+                <label for="{{ form.gender.id_for_label }}">Gender:</label>
+                {{ form.gender }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.birthday.errors }}
+                <label for="{{ form.birthday.id_for_label }}">Birthday:</label>
+                {{ form.birthday }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.status.errors }}
+                <label for="{{ form.status.id_for_label }}">Status:</label>
+                {{ form.status }}
+            </div>
+            <div class="fieldWrapper">
+                {{ form.phone_num.errors }}
+                <label for="{{ form.phone_num.id_for_label }}">Phone number:</label>
+                {{ form.phone_num }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.country.errors }}
+                <label for="{{ form.country.id_for_label }}">Country:</label>
+                {{ form.country }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.city.errors }}
+                <label for="{{ form.city.id_for_label }}">City:</label>
+                {{ form.city }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.info.errors }}
+                <label for="{{ form.info.id_for_label }}">Info:</label>
+                {{ form.info }}
+            </div>
+
+            <div class="fieldWrapper">
+                <div class="container">
+                    <div class="row">
+                        {{ form.big_photo.errors }}
+                        <label for="{{ form.big_photo.id_for_label }}">Photo:</label>
+                        {{ form.big_photo }}
+                    </div>
+                    <div class="row">
+                        <span id="output"><img class="thumb" height="100" width="100" title="ttt"
+                                               src="{{ user.userinfo.big_photo.url }}"></span>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
         <input type="submit" value="register" />
     </form>
+
+{% endblock %}
+
+
+
+{% block script %}
+
+    {% load staticfiles %}
+    <script type="text/javascript" src="{% static "load_image.js" %}"></script>
+
 {% endblock %}

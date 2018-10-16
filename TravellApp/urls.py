@@ -25,6 +25,7 @@ urlpatterns = [
     path('user/', include('UserProfile.urls')),
     path('reg/', include('Authentication.urls')),
     path('chat/', include('Chat.urls')),
+    path('house/', include('HouseSearch.urls')),
   ]
 
 
