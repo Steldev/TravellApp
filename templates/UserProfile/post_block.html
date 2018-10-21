@@ -1,0 +1,36 @@
+<div class="post">
+    {{ post.date_public| date:"d-m-Y H:i" }} <br/>
+    -------------------------
+    <div class="post_text">
+        {{ post.text | truncatechars:128 }}
+    </div>
+    <div class="post_img">
+        {% for image in post.get_images %}
+            <img src="{{ image.file.url }}" height="200" width="300"/>
+        {% endfor %}
+    </div>
+    <div class="post_video">
+        {% for video in post.get_video %}
+            <video controls="controls">
+                <source src="{{ video.file.url }}">
+            </video>
+        {% endfor %}
+    </div>
+
+    <div class="post_audio">
+        {% for audio in post.get_audio %}
+            <audio controls="controls">
+                <source src="{{ audio.file.url }}">
+            </audio>
+        {% endfor %}
+    </div>
+
+    <div class="post_files">
+        {% for file in post.get_files %}
+            <a download="file.file.url">Cкачать</a>
+        {% endfor %}
+    </div>
+
+
+    -------------------------
+</div>

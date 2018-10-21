@@ -74,3 +74,7 @@ class InformationForm(forms.ModelForm):
             'big_photo': forms.FileInput(),
        }
 
+    def save(self, user):
+        user_info = super(InformationForm, self).save(commit=False)
+        user_info.user = user
+        return user_info.save()

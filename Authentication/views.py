@@ -3,6 +3,8 @@ from django.http import HttpResponseRedirect
 
 from Authentication.forms import *
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+
 
 
 def login_page(request):
@@ -17,7 +19,7 @@ def login_page(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponseRedirect('/user/')
+                    return HttpResponseRedirect('/user/%s' % user.pk)
                 else:
                     errors += ["disabled account!"]
             else:
@@ -30,6 +32,7 @@ def login_page(request):
                   {'form': form,
                    'errors': errors,
                   })
+
 
 def logout_page(request):
     """выход из аккаунта"""
@@ -49,10 +52,14 @@ def registration_page(request):
     return render(request, 'Registration/registration_page.html', {'form': form})
 
 
+@login_required
 def information_page(request):
     """информация о ползователе"""
 
-    user_info = UserInfo.objects.get(user=request.user)
+    try:
+        user_info = UserInfo.objects.get(user=request.user)
+    except UserInfo.DoesNotExist:
+        user_info = None
 
     if request.method == 'POST':
         if user_info:
@@ -60,8 +67,8 @@ def information_page(request):
         else:
             form = InformationForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/user/')
+            form.save(request.user)
+            return HttpResponseRedirect('/user/%s/' % request.user.pk)
         else:
             return render(request, 'Registration/user_info_page.html', {'form': form})
 

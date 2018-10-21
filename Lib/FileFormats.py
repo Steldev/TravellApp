@@ -1,26 +1,25 @@
 """valid file formats"""
+from Lib import FFD
 
 formats_files = {
 
-    'IM': ['jpg', 'jpeg', 'png', 'gif', ],
-    'VD': ['mp4', ],
-    'AU': ['mp3', ],
-    'FL': ['txt', 'doc', 'docx', ],
+    FFD.IMAGE: ['jpg', 'jpeg', 'png', 'gif', ],
+    FFD.VIDEO: ['mp4', ],
+    FFD.AUDIO: ['mp3', ],
+    FFD.FILES: ['txt', 'doc', 'docx', ],
 }
 
 
-def check_files_formats(exts):
-    """Проверяет валидность формата файла.
-    Получает список расширеший и возвращает соответствующие им типы файла.
-    В случае получения неподдерживаемого формата возвращает пустое значение
-    """
-    type_file = []
-    for ext in exts:
+def check_files_formats(fname, ftype=None):
+    """Проверяет валидность формата файла"""
+
+    correct_ext = False
+    ext = fname.split('.')[-1]
+    if ftype:
+        if ext in formats_files[ftype]:
+            correct_ext = True
+    else:
         for key in formats_files.keys():
             if ext in formats_files[key]:
-                type_file.append(key)
-
-    if len(exts) != len(type_file):
-        return None
-
-    return type_file
+                correct_ext = True
+    return correct_ext

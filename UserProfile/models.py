@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from model_utils import Choices
+from Lib import FFD
+
+
 
 
 class UserInfo(models.Model):
@@ -38,24 +41,46 @@ class UserInfo(models.Model):
                                   blank=True,
                                   default='def_user_photo.png')
 
+
+class NoteManager(models.Manager):
+    def get_images(self):
+        return super(Note, self).get_queryset().filter(pk=self.pk). \
+            filter(attachment_type=FFD.AUDIO)
+
+
 class Note(models.Model):
     user = models.ForeignKey(User, on_delete='Cascade')
     text = models.TextField(max_length=1000, blank=True)
     date_public = models.DateTimeField(auto_now_add=True)
 
+    attachments = NoteManager()
+    object = models.Manager()
 
-def get_upload_file_way(type):
-    return 'user_files/%s/' % type
+    def get_images(self):
+        return self.attachment_set.filter(type=FFD.IMAGE)
+
+    def get_video(self):
+        return self.attachment_set.filter(type=FFD.VIDEO)
+
+    def get_audio(self):
+        return self.attachment_set.filter(type=FFD.AUDIO)
+
+    def get_files(self):
+        return self.attachment_set.filter(type=FFD.FILES)
+
+
+def get_upload_file_way(ftype):
+    return 'user_files/%s/' % ftype
 
 class Attachment(models.Model):
     FILE_TYPE = (
-        ('IM', 'фото'),
-        ('VD', 'видео'),
-        ('AU', 'аудио'),
-        ('FL', 'файл'),
+        (FFD.IMAGE, 'фото'),
+        (FFD.VIDEO, 'видео'),
+        (FFD.AUDIO, 'аудио'),
+        (FFD.FILES, 'файл'),
     )
-
     note = models.ForeignKey(Note, on_delete='Cascade')
     type = models.CharField(max_length=2,
                             choices=FILE_TYPE)
-    file = models.FileField(upload_to='user_files/%s/' % 'img')
+    file = models.FileField(upload_to='user_files/all_files/',
+                            blank=True)

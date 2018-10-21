@@ -11,6 +11,7 @@
     <div class="inf">
 
     <h2> Name: {{ user.username }} </h2>
+        {% if user.userinfo %}
         <img src="{{ user.userinfo.big_photo.url}}" height="200" width="300"/>
         <p>Status: {{ status}}</p>
         <p>Country: {{ user.userinfo.country }}</p>
@@ -20,14 +21,14 @@
          {% if user.userinfo.phone_num %}
             <p>Phone: {{ user.userinfo.phone_num }}</p>
         {% endif %}
-
-        {% if f %}
-            {% for u in f %}
-                <p> {{ f }} </p>
-            {% endfor %}
-        {% else %}
-            hdhdhdhd
         {% endif %}
+    </div>
+
+    <div class="user-posts">
+        {% for post in posts %}
+            {% include "UserProfile/post_block.html" %}
+        {% endfor %}
+
     </div>
 
 {% endblock %}
