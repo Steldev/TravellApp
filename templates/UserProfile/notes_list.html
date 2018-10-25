@@ -1,0 +1,9 @@
+{% if notes %}
+
+    {% for note in notes %}
+        {% include "UserProfile/note_block.html" %}
+    {% endfor %}
+
+{% else %}
+    "You have any note yet"
+{% endif %}

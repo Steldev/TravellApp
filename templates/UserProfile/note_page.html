@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Note {{ note.id }}{% endblock %}
+{% block external %}
+
+{% endblock %}
+{% block head %}Note {{ note.id }}{% endblock %}
+
+{% block content %}
+
+    <div class="note">
+        {% if is_owner %}
+            <a href="/user/note/create/"> [edit] </a>
+        {% endif %}
+        {{ note.date_public| date:"d-m-Y H:i" }} <br/>
+        -------------------------
+        <div class="note_text">
+            {{ note.text }}
+        </div>
+        <div class="note_img">
+            {% for image in note.get_images %}
+                <img src="{{ image.file.url }}" height="200" width="300"/>
+            {% endfor %}
+        </div>
+        <div class="note_video">
+            {% for video in note.get_video %}
+                <video controls="controls">
+                    <source src="{{ video.file.url }}">
+                </video>
+            {% endfor %}
+        </div>
+
+        <div class="note_audio">
+            {% for audio in note.get_audio %}
+                <audio controls="controls">
+                    <source src="{{ audio.file.url }}">
+                </audio>
+            {% endfor %}
+        </div>
+
+        <div class="note_files">
+            {% for file in note.get_files %}
+                <a download="file.file.url">Cкачать</a>
+            {% endfor %}
+        </div>
+
+
+        -------------------------
+    </div>
+
+{% endblock %}

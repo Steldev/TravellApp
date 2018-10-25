@@ -43,9 +43,21 @@ class UserInfo(models.Model):
 
 
 class NoteManager(models.Manager):
-    def get_images(self):
-        return super(Note, self).get_queryset().filter(pk=self.pk). \
-            filter(attachment_type=FFD.AUDIO)
+
+    def get_latest_note(self, user, limit=10):
+        qs = self.filter(user=user)
+        qs = qs.order_by('-date_public')[0:limit]
+        return qs
+
+    def get_new_note_portion(self, since, limit=10):
+        qs = self.order_by('-date_public')
+        res = []
+        if since:
+            qs = self.filter(date_public__lt=since)
+        for note in qs[0:limit]:
+            res.append(note)
+
+        return res
 
 
 class Note(models.Model):
@@ -53,8 +65,8 @@ class Note(models.Model):
     text = models.TextField(max_length=1000, blank=True)
     date_public = models.DateTimeField(auto_now_add=True)
 
-    attachments = NoteManager()
-    object = models.Manager()
+    note_objects = NoteManager()
+    objects = models.Manager()
 
     def get_images(self):
         return self.attachment_set.filter(type=FFD.IMAGE)
@@ -73,14 +85,31 @@ def get_upload_file_way(ftype):
     return 'user_files/%s/' % ftype
 
 class Attachment(models.Model):
-    FILE_TYPE = (
-        (FFD.IMAGE, 'фото'),
-        (FFD.VIDEO, 'видео'),
-        (FFD.AUDIO, 'аудио'),
-        (FFD.FILES, 'файл'),
-    )
+
     note = models.ForeignKey(Note, on_delete='Cascade')
     type = models.CharField(max_length=2,
-                            choices=FILE_TYPE)
+                            choices=FFD.FILE_TYPE)
     file = models.FileField(upload_to='user_files/all_files/',
                             blank=True)
+
+
+def save_attach(files_dict, note):
+    files = files_dict.getlist('images', None)
+    for file in files:
+        new_attachment = Attachment(note=note, file=file, type='IM')
+        new_attachment.save()
+
+    files = files_dict.getlist('video', None)
+    for file in files:
+        new_attachment = Attachment(note=note, file=file, type='VD')
+        new_attachment.save()
+
+    files = files_dict.getlist('audio', None)
+    for file in files:
+        new_attachment = Attachment(note=note, file=file, type='AU')
+        new_attachment.save()
+
+    files = files_dict.getlist('files', None)
+    for file in files:
+        new_attachment = Attachment(note=note, file=file, type='FL')
+        new_attachment.save()

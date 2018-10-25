@@ -25,10 +25,37 @@
     </div>
 
     <div class="user-posts">
-        {% for post in posts %}
-            {% include "UserProfile/post_block.html" %}
-        {% endfor %}
 
+        {% include "UserProfile/notes_list.html" %}
+        <a href="#" id="load_href_1">Load prevision notes</a>
     </div>
+
+{% endblock %}
+
+{% block script %}
+
+    {% load staticfiles %}
+    <script src="{% static '/js/jquery_3_3_1.min.js' %}"></script>
+
+    <script type="text/javascript">
+        // Магія розпочнеться лише після повного завантаження сторінки
+        $(document).ready(function () {
+            // Посилання з id="test" буде тригером події
+            $("#load_href_1").click(function () {
+                qr = $(".user-posts").lastChild;
+                $.ajax({
+                    type: 'GET',
+                    async: true,
+                    url: 'load_notes/',
+                    data: "since=1;",
+                    success: function (data) {
+                        $(".user-posts").append(data['html'])
+                    },
+                    dataType: 'json',
+                });
+
+            });
+        });
+    </script>
 
 {% endblock %}

@@ -9,10 +9,12 @@ formats_files = {
     FFD.FILES: ['txt', 'doc', 'docx', ],
 }
 
+MAX_FILES_SIZE = 10 ** 8
+MAX_FILES_COUNT = 10
 
-def check_files_formats(fname, ftype=None):
+
+def check_file_formats(fname, ftype=None):
     """Проверяет валидность формата файла"""
-
     correct_ext = False
     ext = fname.split('.')[-1]
     if ftype:
@@ -23,3 +25,24 @@ def check_files_formats(fname, ftype=None):
             if ext in formats_files[key]:
                 correct_ext = True
     return correct_ext
+
+
+def check_file_size(file):
+    if file.size > MAX_FILES_SIZE:
+        return False
+    return True
+
+
+def handle_uploaded_file(files_dict):
+    errors_file_type = []
+
+    for elem in FFD.FILE_TYPE:
+        files = files_dict.getlist(elem[1], None)
+        if len(files) > MAX_FILES_COUNT:
+            errors_file_type.append("To many files")
+        else:
+            for file in files:
+                if not check_file_formats(file.name, elem[0]):
+                    errors_file_type.append("don`t support this file extension for image file")
+
+    return errors_file_type
