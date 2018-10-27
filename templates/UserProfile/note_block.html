@@ -1,8 +1,12 @@
 <div class="note" id="note_element-{{ note.pk }}">
-    {{ note.date_public| date:"d-m-Y H:i" }} <br/>
+
+    <span class="note_date">{{ note.date_public| date:"d-m-Y H:i" }}</span> <br/>
     -------------------------
+    <span class="delete_element">[delete]</span> |
+    <span>[edit]</span>
+
     <div class="note_text">
-        {{ note.text | truncatechars:128 }}
+        {{ note.text }}
     </div>
     <div class="note_img">
         {% for image in note.get_images %}

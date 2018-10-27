@@ -1,13 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
-from UserProfile.forms import *
+from django.http import HttpResponseRedirect, Http404, JsonResponse
 from django.template.loader import render_to_string
 
 from UserProfile.forms import *
-from UserProfile.models import save_attach
+from UserProfile.models import UserExt, save_attach
 
-import datetime
+from datetime import datetime
 
 from Lib.FileFormats import handle_uploaded_file
 
@@ -17,8 +16,7 @@ from Lib.FileFormats import handle_uploaded_file
 
 
 def home(request, user_id):
-
-    user = get_object_or_404(User, pk=user_id)
+    user = get_object_or_404(UserExt, pk=user_id)
 
     try:
         user_info = UserInfo.objects.get(pk=user.pk)
@@ -29,7 +27,7 @@ def home(request, user_id):
     if user_info:
         status = user.userinfo.STATUS_TYPE[request.user.userinfo.status]
 
-    notes = Note.note_objects.get_latest_note(user.pk)
+    notes = user.get_new_note_portion()
 
 
     data = {
@@ -46,9 +44,14 @@ def home(request, user_id):
 
 
 def load_notes(request, user_id):
-    user = get_object_or_404(User, pk=user_id)
+    user = get_object_or_404(UserExt, pk=user_id)
     if request.is_ajax():
-        notes = Note.note_objects.get_latest_note(user.pk)
+
+        since = None
+        if 'since' in request.GET:
+            since = datetime.strptime(request.GET['since'], '%d-%m-%Y %H:%M')
+
+        notes = user.get_new_note_portion(since)
 
         data = {
             'notes': notes,
@@ -118,3 +121,12 @@ def note_edit_page(request, note_id):
                   {'form_note': form_note,
                    'note': note,
                    })
+
+
+def note_delete(request, note_id):
+    note = get_object_or_404(Note, pk=note_id)
+    if request.user == note.user:
+        note.deleted = datetime.now()
+        note.save()
+
+    return HttpResponseRedirect('/user/%s/' % note.user_id)

@@ -2,7 +2,9 @@
 
 {% block title %}{{ user.username }} | Profile{% endblock %}
 {% block external %}
-
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/modal_window.css' %}">
 {% endblock %}
 
 {% block head %}{{ user.username }} | Profile{% endblock %}
@@ -25,37 +27,32 @@
     </div>
 
     <div class="user-posts">
-
         {% include "UserProfile/notes_list.html" %}
-        <a href="#" id="load_href_1">Load prevision notes</a>
     </div>
 
+    <span id="load_href_1">Load prevision notes</span>
+
+    {% include 'modal_delete.html' %}
 {% endblock %}
 
 {% block script %}
 
     {% load staticfiles %}
     <script src="{% static '/js/jquery_3_3_1.min.js' %}"></script>
+    <script src="{% static '/js/ajax_get_notes.js' %}"></script>
+    <script src="{% static '/js/show_modal.js' %}"></script>
 
-    <script type="text/javascript">
-        // Магія розпочнеться лише після повного завантаження сторінки
+    <script>
+
         $(document).ready(function () {
             // Посилання з id="test" буде тригером події
-            $("#load_href_1").click(function () {
-                qr = $(".user-posts").lastChild;
-                $.ajax({
-                    type: 'GET',
-                    async: true,
-                    url: 'load_notes/',
-                    data: "since=1;",
-                    success: function (data) {
-                        $(".user-posts").append(data['html'])
-                    },
-                    dataType: 'json',
-                });
+            $(".note_text").click(function () {
 
             });
+
         });
+
+
     </script>
 
 {% endblock %}

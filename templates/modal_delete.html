@@ -1,0 +1,9 @@
+<div class='modal'>
+    <p>You really want delete this Note?</p>
+    <form action="/user/delete/{{ note.pk }}/" method="post">
+
+        <button class="delete_button">delete</button>
+        <button class="cancel_button">cancel</button>
+
+    </form>
+</div>

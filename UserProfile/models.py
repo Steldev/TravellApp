@@ -1,9 +1,23 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import User
 from model_utils import Choices
 from Lib import FFD
 
 
+class UserExt(User):
+    class Meta:
+        proxy = True
+
+    def get_new_note_portion(self, since=None, limit=10):
+        qs = self.note_set.order_by('-date_public')
+        if since:
+            qs = qs.filter(date_public__lte=since)
+        qs = qs[0:limit]
+        return qs
+
+    def get_absolute_url(self):
+        return reverse('home', args=[str(self.id)])
 
 
 class UserInfo(models.Model):
@@ -44,29 +58,30 @@ class UserInfo(models.Model):
 
 class NoteManager(models.Manager):
 
-    def get_latest_note(self, user, limit=10):
-        qs = self.filter(user=user)
-        qs = qs.order_by('-date_public')[0:limit]
-        return qs
+    def get_query_set(self):
+        return super(NoteManager, self).get_query_set().filter(deleted__isnull=True)
 
-    def get_new_note_portion(self, since, limit=10):
-        qs = self.order_by('-date_public')
-        res = []
-        if since:
-            qs = self.filter(date_public__lt=since)
-        for note in qs[0:limit]:
-            res.append(note)
 
-        return res
+class NoteDeleteManager(models.Manager):
+
+    def get_query_set(self):
+        return super(NoteDeleteManager, self).get_query_set().filter(deleted__isnull=False).order_by('-deleted')
 
 
 class Note(models.Model):
+
     user = models.ForeignKey(User, on_delete='Cascade')
     text = models.TextField(max_length=1000, blank=True)
     date_public = models.DateTimeField(auto_now_add=True)
 
+    deleted = models.DateField(null=True, db_index=True)
+
     note_objects = NoteManager()
-    objects = models.Manager()
+    objects = NoteManager()
+    note_delete_objects = NoteDeleteManager()
+
+    def get_absolute_url(self):
+        return reverse('note', args=[str(self.id)])
 
     def get_images(self):
         return self.attachment_set.filter(type=FFD.IMAGE)
@@ -83,6 +98,7 @@ class Note(models.Model):
 
 def get_upload_file_way(ftype):
     return 'user_files/%s/' % ftype
+
 
 class Attachment(models.Model):
 

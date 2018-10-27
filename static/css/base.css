@@ -1,0 +1,10 @@
+#load_href_1 {
+    background: chartreuse;
+    font-size: large;
+    cursor: pointer;
+}
+
+.delete_element {
+    background: chartreuse;
+    cursor: pointer;
+}

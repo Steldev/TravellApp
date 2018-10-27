@@ -1,0 +1,14 @@
+.modal {
+
+    position: fixed;
+    display: none;
+    top: 24%;
+    right: 38%;
+    width: 320px;
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+}
+
