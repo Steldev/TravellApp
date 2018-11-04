@@ -8,6 +8,7 @@
 	</div>
 
 	<div class="col-3 pl-1">
+
 		<input class="btn btn-primary mb-2 w-100" type="submit" value="Post"/>
 		
 		<div class="btn-group w-100">
@@ -48,13 +49,9 @@
 		</div>
 	</div>
 
-	
-
-	
+		
     {% for error in errors_type %}
         {{ error }} <br/>
     {% endfor %}
-    {{ form_note.as_p }}
-    {{ form_attach.as_p }}
     
 </form>
