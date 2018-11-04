@@ -2,40 +2,10 @@
 
 {% block title %}{{ user.username }} | Profile{% endblock %}
 
-{% block external %}
-    {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static '/css/base.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static '/css/modal_window.css' %}">
-
-    <!-- Custom Styles | Объединить с base.css в последствии (?) -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-    <!-- Icons -->
-    <<<<<<< HEAD
-    <link rel="stylesheet" href="{% static 'node_modules\@fortawesome\fontawesome-free\css\all.css' %}">
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="{% static 'node_modules\bootstrap\dist\css\bootstrap.min.css' %}">
-    <script src="{% static 'node_modules\bootstrap\dist\css\bootstrap.min.js' %}"></script>
-    =======
-    <link rel="stylesheet" href="{% static 'node_modules/@fortawesome/fontawesome-free/css/all.css' %}">
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
-    <script src="{% static 'node_modules/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-    >>>>>>> Добавлена красивая страница пользователя
-
-{% endblock %}
 
 {% block content %}
     <div class="row">
         <div class="left-column col-sm-12 col-md-3">
-            <<<<<<< HEAD
-        
-            <!-- Name and avatar block -->
-            {% include "UserProfile\includes\userNameAvatar.html" %}
-            
-            {% if user.userinfo %}
-                <!-- Information block -->
-                {% include "UserProfile\includes\userInfo.html" %}
-            =======
 
             <!-- Name and avatar block -->
             {% include "UserProfile/includes/userNameAvatar.html" %}
@@ -43,27 +13,23 @@
             {% if user.userinfo %}
                 <!-- Information block -->
                 {% include "UserProfile/includes/userInfo.html" %}
-                >>>>>>> Добавлена красивая страница пользователя
             {% endif %}
 
         </div> <!-- left-column -->
         <div class="main-column col-sm-12 col-md-7">
 
-            <div class="user-posts">
-                {% include "UserProfile/notes_list.html" %}
+            <div class="block block-header mb-2">
+                {% include "UserProfile/includes/create_note.html" %}
             </div>
-            <<<<<<< HEAD
 
-            =======
+            <div class="user-posts">
+                {% include "UserProfile/includes/notes_list.html" %}
+            </div>
 
-            >>>>>>> Добавлена красивая страница пользователя
             <div class="block block-footer d-flex justify-content-center">
                 <button type="button" class="load_href_1 btn btn-primary">Load prevision notes</button>
             </div>
 
-            <span id="load_href_1">Load prevision notes</span>
-
-            {% include 'modal_delete.html' %}
 
         </div> <!-- main-column -->
     </div> <!-- row -->
@@ -72,21 +38,15 @@
 {% block script %}
 
     {% load staticfiles %}
-    <script src="{% static '/js/jquery_3_3_1.min.js' %}"></script>
+
+    <script src="{% static '/js/form.js' %}"></script>
+    <script src="{% static '/js/js.cookie.js' %}"></script>
+    <script src="{% static '/js/ajax_csrf.js' %}"></script>
     <script src="{% static '/js/ajax_get_notes.js' %}"></script>
     <script src="{% static '/js/show_modal.js' %}"></script>
+    <script src="{% static '/js/short_text.js' %}"></script>
 
-    <script>
-
-        $(document).ready(function () {
-            // Посилання з id="test" буде тригером події
-            $(".note_text").click(function () {
-
-            });
-
-        });
-
-
-    </script>
+    <!-- Load file to note -->
+    <script src="{% static '/js/load_file.js' %}" type="text/javascript"></script>
 
 {% endblock %}

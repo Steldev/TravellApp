@@ -6,20 +6,43 @@
 
 {% block content %}
 
-    {% if errors %}
-        {% for error in errors %}
-        <p>{{error}}</p>
-        {% endfor %}
-    {% endif %}
+    <div class="row justify-content-center">
 
-    <form method="post" action="">
+        <form method="post" class="col-5 form-group">
 
-        {% csrf_token %}
+            <div class="auth-header block block-header">
+                <h4 class="pl-3 mb-1">Login</h4>
+            </div> <!-- auth-header -->
 
-        <p><label for="id_username">Username:</label> {{ form.username }}</p>
-        <p><label for="id_password">Password:</label> {{ form.password }}</p>
-        <input type="hidden" name="next" value="/" />
-        <input type="submit" value="login" />
+            <div class="auth-body block p-3">
+                {% csrf_token %}
+                <label for="id_username">Username</label>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">@</div>
+                    </div>
+                    <input for="id_username" type="text" name="username" class="form-control" placeholder="Username">
+                </div>
 
-    </form>
+                <label for="id_password">Password</label>
+                <input for="id_password" type="password" name="password" class="form-control mb-2"
+                       placeholder="Password">
+
+                {% if errors %}
+                    {% for error in errors %}
+                        <div class="alert alert-danger px-1 py-0" role="alert">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <input type="hidden" name="next" value="/"/>
+            </div> <!-- auth-body -->
+
+            <div class="auth-footer block block-footer d-flex justify-content-center">
+                <input type="submit" class="btn btn-primary py-1" value="login"/>
+            </div> <!-- auth-footer -->
+
+        </form>
+    </div> <!-- row -->
 {% endblock %}

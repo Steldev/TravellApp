@@ -20,6 +20,13 @@ class UserExt(User):
         return reverse('home', args=[str(self.id)])
 
 
+class Country(models.Model):
+    name = models.CharField(max_length=30)
+    phone_code = models.CharField(max_length=4)
+
+    def __str__(self):
+        return self.name
+
 class UserInfo(models.Model):
 
     TRAVEL = 'TR'
@@ -43,7 +50,7 @@ class UserInfo(models.Model):
 
     phone_num = models.CharField(max_length=12,
                                  blank=True)
-    country = models.CharField(max_length=30)
+    country = models.ForeignKey(Country, on_delete='Cascade', null=True)
     city = models.CharField(max_length=30,
                             blank=True)
     info = models.TextField(max_length=256,
@@ -58,14 +65,14 @@ class UserInfo(models.Model):
 
 class NoteManager(models.Manager):
 
-    def get_query_set(self):
-        return super(NoteManager, self).get_query_set().filter(deleted__isnull=True)
+    def get_queryset(self):
+        return super(NoteManager, self).get_queryset().filter(deleted__isnull=True)
 
 
 class NoteDeleteManager(models.Manager):
 
-    def get_query_set(self):
-        return super(NoteDeleteManager, self).get_query_set().filter(deleted__isnull=False).order_by('-deleted')
+    def get_queryset(self):
+        return super(NoteDeleteManager, self).get_queryset().filter(deleted__isnull=False).order_by('-deleted')
 
 
 class Note(models.Model):
@@ -76,7 +83,7 @@ class Note(models.Model):
 
     deleted = models.DateField(null=True, db_index=True)
 
-    note_objects = NoteManager()
+    # note_objects = NoteManager()
     objects = NoteManager()
     note_delete_objects = NoteDeleteManager()
 
@@ -110,11 +117,6 @@ class Attachment(models.Model):
 
 
 def save_attach(files_dict, note):
-    files = files_dict.getlist('images', None)
-    for file in files:
-        new_attachment = Attachment(note=note, file=file, type='IM')
-        new_attachment.save()
-
     files = files_dict.getlist('video', None)
     for file in files:
         new_attachment = Attachment(note=note, file=file, type='VD')

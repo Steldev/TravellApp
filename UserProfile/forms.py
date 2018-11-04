@@ -6,10 +6,12 @@ from UserProfile.models import *
 class NoteForm(forms.ModelForm):
     class Meta:
         model = Note
-        exclude = ['user', 'date_public']
+        exclude = ['user', 'date_public', 'deleted']
 
         widgets = {
-            'text': forms.Textarea,
+            'text': forms.Textarea(attrs={'class': 'full',
+                                          'wrap': 'hard',
+                                          'cols': 10}),
         }
 
 

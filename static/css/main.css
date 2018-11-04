@@ -1,6 +1,6 @@
 /*** Theme (bright) ***/
 /* main background */
-body { 
+body {
 	background-color: #c2cad6 !important;
 }
 
@@ -64,4 +64,28 @@ body {
 	margin-right: 15px;
 	float: right;
 	font-size: 26px;
+}
+
+.auth-body {
+    margin-bottom: 3px !important;
+}
+
+.navbar {
+    z-index: 1;
+    top: 0;
+    color: white;
+}
+
+.file-upload label {
+    cursor: pointer;
+    width: 100%;
+    color: white;
+}
+
+.container {
+    padding-top: 75px;
+}
+
+.file-label {
+    display: none;
 }
