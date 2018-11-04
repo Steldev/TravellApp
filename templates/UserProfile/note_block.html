@@ -4,7 +4,7 @@
     <div class="note-header block row align-items-center">
         <!-- User info (left) -->
         <div class="note-userinfo col-4 p-0">
-            <a href="#">
+            <a href="{{ object.get_absolute_url }}">
                 <!-- test -->
                 {% if user.userinfo.big_photo %}
                     <img src="{{ user.userinfo.big_photo.url }}" class="img-fluid">

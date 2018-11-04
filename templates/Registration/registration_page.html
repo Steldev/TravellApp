@@ -5,9 +5,34 @@
 {% block head %}User Registration{% endblock %}
 
 {% block content %}
-    <form method="post" action="">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="register" />
-    </form>
+	<div class="row justify-content-center">
+	    <form method="post" class="col-5 form-group" action="">
+
+	    	<div class="auth-header block block-header">
+                <h4 class="pl-3 mb-1">Registration</h4>
+            </div> <!-- auth-header -->
+
+            <div class="auth-body block p-3">
+                {% csrf_token %}
+
+                <label for="id_username">Username</label>
+                <input for="id_username" type="text" name="username" class="form-control mb-2" placeholder="Username">
+
+                <label for="id_email">Email</label>
+                <input for="id_email" type="email" name="email" class="form-control mb-2" placeholder="Email">
+
+                <label for="id_password1">Password</label>
+                <input for="id_password1" type="password" name="password1" class="form-control mb-2" placeholder="Password">
+
+                <label for="id_password2">Confirm password</label>
+                <input for="id_password2" type="password" name="password2" class="form-control mb-2" placeholder="Confirm password">
+
+            </div> <!-- auth-body -->
+
+            <div class="auth-footer block block-footer d-flex justify-content-center">
+                <input type="submit" class="btn btn-primary py-1" value="Sign in" />
+            </div> <!-- auth-footer -->
+	        
+	    </form>
+	</div> <!-- row -->
 {% endblock %}

@@ -1,0 +1,59 @@
+<form action="" enctype="multipart/form-data" method="post" class="row d-flex justify-content-end">
+    {% csrf_token %}
+
+    <h5 class="col-12 ml-2">New note</h5>
+
+	<div class="col-9">
+		<textarea name="text" maxlength="1000" id="id_text" class="form-control h-100"></textarea>
+	</div>
+
+	<div class="col-3">
+		<input class="btn btn-primary mb-2 w-100" type="submit" value="Create"/>
+		<div class="btn-group w-100">
+			<button class="btn btn-primary btn-sm dropdown-toggle w-100" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Upload file
+			</button>
+			<div class="dropdown-menu p-0">
+				<!-- <a class="dropdown-item" for="id_images" href="#">123</a>
+				<input value="123" type="file" name="images"  accept="image/*" id="id_images"> -->
+				
+				<!-- Image -->
+				<div class="file-upload">
+					<input class="file invisible position-absolute" type="file" id="id_images" multiple>
+			  		<label class="m-0 pl-3 bg-primary" for="id_images">Image</label>
+			    </div>
+				<!-- Video -->
+			    <div class="file-upload">
+					<input class="file invisible position-absolute" type="file" id="id_video" multiple>
+			  		<label class="m-0 pl-3 bg-primary" for="id_video">Video</label>
+			    </div>
+				<!-- Audio -->
+				<div class="file-upload">
+					<input class="file invisible position-absolute" type="file" id="id_audio" multiple>
+			  		<label class="m-0 pl-3 bg-primary" for="id_audio">Audio</label>
+			    </div>
+				<!-- File -->
+				<div class="file-upload">
+					<input class="file invisible position-absolute" type="file" id="id_files" multiple>
+			  		<label class="m-0 pl-3 bg-primary" for="id_files">Another file</label>
+			    </div>
+			</div>
+		</div>
+		<div>
+			<label class="file-label file-list-image w-100 m-0"></label>
+			<label class="file-label file-list-video w-100 m-0"></label>
+			<label class="file-label file-list-audio w-100 m-0"></label>
+			<label class="file-label file-list-file w-100 m-0"></label>
+		</div>
+	</div>
+
+	
+
+	
+    {% for error in errors_type %}
+        {{ error }} <br/>
+    {% endfor %}
+    {{ form_note.as_p }}
+    {{ form_attach.as_p }}
+    
+</form>

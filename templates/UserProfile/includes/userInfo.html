@@ -2,7 +2,11 @@
 
 <!-- Information block -->
 <div class="information-block">
-	<h5 class="block block-header">Information</h5>
+	<div class="block block-header d-flex justify-content-between">
+		<h5 class="mb-0">Information</h5>
+		<button type="button" class="btn btn-warning py-0 px-2"><small><i class="fas fa-edit"></i></small></button>
+	</div>
+	
 	<div class="block block-footer">
 
 		{% if user.userinfo.status %}
