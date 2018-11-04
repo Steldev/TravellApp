@@ -13,7 +13,8 @@ $( document ).ready(function() {
     inputs.change(function ( e ) {
         fileList = '';
         for (index in e.target.files) {
-            if (this.files[index] instanceof File) fileList += '<p class="m-0">' + this.files[index].name + '</p>';
+            if (this.files[index] instanceof File) fileList += '<p class="m-0 text-muted"><small>' + 
+                this.files[index].name + '</small></p>';
         }
 
         if (fileList) label[e.target.id].show();

@@ -3,33 +3,34 @@
 
     <h5 class="col-12 ml-2">New note</h5>
 
-	<div class="col-9">
+	<div class="col-9 pr-1">
 		<textarea name="text" maxlength="1000" id="id_text" class="form-control h-100"></textarea>
 	</div>
 
-	<div class="col-3">
-		<input class="btn btn-primary mb-2 w-100" type="submit" value="Create"/>
+	<div class="col-3 pl-1">
+		<input class="btn btn-primary mb-2 w-100" type="submit" value="Post"/>
+		
 		<div class="btn-group w-100">
+
 			<button class="btn btn-primary btn-sm dropdown-toggle w-100" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				Upload file
+				<i class="fas fa-plus"></i>
+				Add file 
 			</button>
+
 			<div class="dropdown-menu p-0">
-				<!-- <a class="dropdown-item" for="id_images" href="#">123</a>
-				<input value="123" type="file" name="images"  accept="image/*" id="id_images"> -->
-				
 				<!-- Image -->
 				<div class="file-upload">
-					<input class="file invisible position-absolute" type="file" id="id_images" multiple>
+					<input class="file invisible position-absolute" type="file" accept="image/*" id="id_images" multiple>
 			  		<label class="m-0 pl-3 bg-primary" for="id_images">Image</label>
 			    </div>
 				<!-- Video -->
 			    <div class="file-upload">
-					<input class="file invisible position-absolute" type="file" id="id_video" multiple>
+					<input class="file invisible position-absolute" type="file" accept="video/*" id="id_video" multiple>
 			  		<label class="m-0 pl-3 bg-primary" for="id_video">Video</label>
 			    </div>
 				<!-- Audio -->
 				<div class="file-upload">
-					<input class="file invisible position-absolute" type="file" id="id_audio" multiple>
+					<input class="file invisible position-absolute" type="file" accept="audio/*" id="id_audio" multiple>
 			  		<label class="m-0 pl-3 bg-primary" for="id_audio">Audio</label>
 			    </div>
 				<!-- File -->
