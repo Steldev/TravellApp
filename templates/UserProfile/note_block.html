@@ -24,17 +24,29 @@
         </div>
 
     </div> <!-- note-header -->
-    
+    <<<<<<< HEAD
+
 
     <div class="note-content block p-0">
         <p class="note-text mx-1 mb-1">{{ note.text }}</p>
-        
+
+        =======
+
+
+    <div class="note-content block p-0">
+        <p class="note-text mx-1 mb-1">{{ note.text }}</p>
+
+        >>>>>>> Добавлена красивая страница пользователя
         <div class="note-image">
             {% for image in note.get_images %}
                 <img src="{{ image.file.url }}" class="note-image col-12 img-fluid p-0"/>
             {% endfor %}
         </div>
-        
+        <<<<<<< HEAD
+
+        =======
+
+        >>>>>>> Добавлена красивая страница пользователя
         <div class="note-video">
             {% for video in note.get_video %}
                 <div class="embed-responsive embed-responsive-16by9">
@@ -58,7 +70,11 @@
                 <a download="file.file.url" class="mx-2">{{ file.file.url }}</a>
             {% endfor %}
         </div>
-        
+        <<<<<<< HEAD
+
+        =======
+
+        >>>>>>> Добавлена красивая страница пользователя
         <div class="note-footer row align-items-center">
             <div class="note-time col-6 ">
                 <!-- test -->
@@ -73,4 +89,8 @@
         </div>
     </div> <!-- note-content -->
 
+        <<<<<<< HEAD
 </div> <!-- note -->
+    =======
+</div> <!-- note -->
+>>>>>>> Добавлена красивая страница пользователя

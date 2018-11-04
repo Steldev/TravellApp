@@ -10,16 +10,24 @@
     <!-- Custom Styles | Объединить с base.css в последствии (?) -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <!-- Icons -->
+    <<<<<<< HEAD
     <link rel="stylesheet" href="{% static 'node_modules\@fortawesome\fontawesome-free\css\all.css' %}">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{% static 'node_modules\bootstrap\dist\css\bootstrap.min.css' %}">
     <script src="{% static 'node_modules\bootstrap\dist\css\bootstrap.min.js' %}"></script>
+    =======
+    <link rel="stylesheet" href="{% static 'node_modules/@fortawesome/fontawesome-free/css/all.css' %}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
+    <script src="{% static 'node_modules/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    >>>>>>> Добавлена красивая страница пользователя
 
 {% endblock %}
 
 {% block content %}
     <div class="row">
         <div class="left-column col-sm-12 col-md-3">
+            <<<<<<< HEAD
         
             <!-- Name and avatar block -->
             {% include "UserProfile\includes\userNameAvatar.html" %}
@@ -27,6 +35,15 @@
             {% if user.userinfo %}
                 <!-- Information block -->
                 {% include "UserProfile\includes\userInfo.html" %}
+            =======
+
+            <!-- Name and avatar block -->
+            {% include "UserProfile/includes/userNameAvatar.html" %}
+
+            {% if user.userinfo %}
+                <!-- Information block -->
+                {% include "UserProfile/includes/userInfo.html" %}
+                >>>>>>> Добавлена красивая страница пользователя
             {% endif %}
 
         </div> <!-- left-column -->
@@ -35,7 +52,11 @@
             <div class="user-posts">
                 {% include "UserProfile/notes_list.html" %}
             </div>
-            
+            <<<<<<< HEAD
+
+            =======
+
+            >>>>>>> Добавлена красивая страница пользователя
             <div class="block block-footer d-flex justify-content-center">
                 <button type="button" class="load_href_1 btn btn-primary">Load prevision notes</button>
             </div>
