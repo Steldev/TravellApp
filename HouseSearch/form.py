@@ -26,7 +26,6 @@ class HouseForm(forms.ModelForm):
         house.save()
         return house
 
-
 class PhotoForm(forms.ModelForm):
     class Meta:
         model = HousePhoto
@@ -119,7 +118,29 @@ class SearchHousesForm(forms.Form):
             'min': 1,
             'max': MAX_SLEEPER,
         })
+
     )
+    active = forms.BooleanField(
+        label='Only active',
+        required=False,
+        initial=True,
+        widget=forms.CheckboxInput(attrs={
+            'name': 'active',
+            'required': False,
+            'title': 'Search only acrive advertisement',
+        })
+    )
+    public = forms.DateField(
+        required=False,
+        widget=forms.SelectDateWidget(attrs={
+            'name': 'public',
+            'required': False,
+            'title': 'Search advertisement',
+        })
+
+    )
+
+
     active = forms.BooleanField(
         label='Only active',
         required=False,

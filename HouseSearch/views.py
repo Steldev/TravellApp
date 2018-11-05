@@ -46,7 +46,6 @@ def house_search_page(request):
                        })
     else:
         message = "No result :("
-
     return render(request, 'HouseSerch/house_search.html',
                   {'houses': houses,
                    'form_search': form_search,
