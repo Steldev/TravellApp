@@ -84,24 +84,48 @@ def note_create_page(request):
         form_note = NoteForm(request.POST)
         form_attach = AttachmentForm(request.POST, request.FILES)
 
-        if form_note.is_valid() and form_attach.is_valid():
+        if form_note.is_valid():
 
-            errors_file_type = handle_uploaded_file(request.FILES)
+            errors_file_type = (handle_uploaded_file(request.FILES))
+            if not len(form_note.cleaned_data['text']) and not (len(request.FILES)):
+                errors_file_type.append('Empty post!')
+
+
 
             if not errors_file_type:
+                print('q')
                 new_note = form_note.save(commit=False)
                 new_note.user = user
                 new_note.save()
 
                 save_attach(request.FILES, new_note)
 
+                if request.is_ajax():
+                    dict = []
+                    for im in new_note.get_images():
+                        a = {}
+                        a['image']: im.file.url
+                        dict.append(a)
+
+                    return render(request,
+                                  'UserProfile/note_block.html',
+                                  {'note': new_note,
+                                   'is_creating': True,
+                                   })
+
                 return HttpResponseRedirect('/user/%s/' % request.user.pk)
+
+            else:
+
+                return JsonResponse({'errors': errors_file_type})
+
     else:
         form_note = NoteForm()
         form_attach = AttachmentForm()
 
+
     return render(request,
-                  'UserProfile/create_note.html',
+                  'UserProfile/includes/create_note.html',
                   {'form_note': form_note,
                    'form_attach': form_attach,
                    'is_creating': True,

@@ -1,4 +1,75 @@
+function LoadFile() {
+
+    var inputs = $('.file');
+
+    label = {
+        id_images: $('.file-list-image'),
+        id_video: $('.file-list-video'),
+        id_audio: $('.file-list-audio'),
+        id_files: $('.file-list-file')
+    };
+
+    //Обробник події додання файлу
+    inputs.change(function (e) {
+        fileList = '';
+        for (index in e.target.files) {
+            if (this.files[index] instanceof File) fileList += '<p class="m-0 text-muted"><small>' +
+                this.files[index].name + '</small></p>';
+        }
+
+        if (fileList) label[e.target.id].show();
+        else label[e.target.id].hide();
+
+        label[e.target.id].html(fileList);
+    });
+
+    //якщо форму відправлено
+    $('.form-post-add').on('submit', function (e) {
+        //відміняємо стандартну відправку форми
+        e.preventDefault();
+        //отримання даних форми
+        forms_1 = new FormData($(this).get(0));
+        //відправляємо дані
+        $.ajax({
+            type: $(this).attr('method'),
+            url: '/user/note/create/',
+            contentType: false,
+            processData: false,
+            data: forms_1,
+            success: function (data) {
+
+                if (typeof(data) === "object") {
+                    alert(data['errors']);
+
+                }
+                else {
+                    //додавання нового поста
+                    $('.user-posts').prepend(data)
+                    //очщення форми
+                    $('.form-post-add')[0].reset();
+                    $('.file-label').empty();
+                }
+            }
+
+        });
+        return false;
+    });
+
+
+}
+
+function LoadPostCreateForm() {
+    $('.create-node').load('/user/note/create/', function () {
+        //робота з додаванням постів тількі після завантаження блока
+        LoadFile();
+    });
+    return false;
+}
+
 $(document).ready(function () {
+
+    LoadPostCreateForm();
+
 
     $(".note").on('click', 'button[id^=edit-element-]',
         function () {

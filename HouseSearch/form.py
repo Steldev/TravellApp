@@ -69,6 +69,7 @@ class SearchHousesForm(forms.Form):
         widget=forms.CheckboxSelectMultiple(attrs={
             'name': 'type',
             'required': False,
+            'checked': True,
             'title': 'Choice house-types for search',
         })
     )

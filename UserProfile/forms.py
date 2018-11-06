@@ -9,9 +9,14 @@ class NoteForm(forms.ModelForm):
         exclude = ['user', 'date_public', 'deleted']
 
         widgets = {
-            'text': forms.Textarea(attrs={'class': 'full',
-                                          'wrap': 'hard',
-                                          'cols': 10}),
+            'text': forms.Textarea(attrs={'name': 'text',
+                                          'id': 'id_text',
+                                          'maxlength': 1000,
+                                          'class': 'form-control h-100',
+                                          'rows': False,
+                                          'cols': False,
+                                          'style': False,
+                                          }),
         }
 
 
@@ -20,6 +25,7 @@ class AttachmentForm(forms.Form):
         required=False,
         widget=forms.FileInput(attrs={'name': 'photo',
                                       'multiple': True,
+                                      'class': 'file invisible position-absolute',
                                       'required': False,
                                       'accept': 'image/*'})
     )
@@ -28,7 +34,7 @@ class AttachmentForm(forms.Form):
         required=False,
         widget=forms.FileInput(attrs={'name': 'video',
                                       'multiple': True,
-
+                                      'class': 'file invisible position-absolute',
                                       'required': False,
                                       'accept': 'video/*'})
     )
@@ -37,6 +43,7 @@ class AttachmentForm(forms.Form):
         required=False,
         widget=forms.FileInput(attrs={'name': 'audio',
                                       'multiple': True,
+                                      'class': 'file invisible position-absolute',
                                       'required': False,
                                       'accept': 'audio/*'})
     )
@@ -44,6 +51,8 @@ class AttachmentForm(forms.Form):
     files = forms.ImageField(
         required=False,
         widget=forms.FileInput(attrs={'name': 'files',
+                                      'class': 'file invisible position-absolute',
+
                                       'required': False,
                                       'multiple': True,
                                       })

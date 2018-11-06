@@ -18,9 +18,8 @@
         </div> <!-- left-column -->
         <div class="main-column col-sm-12 col-md-7">
 
-            <div class="block block-header mb-2">
-                {% include "UserProfile/includes/create_note.html" %}
-            </div>
+            <!--Блок для створення постів завантажується через Ajax-->
+            <div class="create-node block block-header mb-2"></div>
 
             <div class="user-posts">
                 {% include "UserProfile/includes/notes_list.html" %}
@@ -42,11 +41,13 @@
     <script src="{% static '/js/form.js' %}"></script>
     <script src="{% static '/js/js.cookie.js' %}"></script>
     <script src="{% static '/js/ajax_csrf.js' %}"></script>
+
+    <!-- Load file to note -->
+    <!-- <script src="{% static '/js/load_file.js' %}" type="text/javascript"></script>
+-->
     <script src="{% static '/js/ajax_get_notes.js' %}"></script>
     <script src="{% static '/js/show_modal.js' %}"></script>
     <script src="{% static '/js/short_text.js' %}"></script>
 
-    <!-- Load file to note -->
-    <script src="{% static '/js/load_file.js' %}" type="text/javascript"></script>
 
 {% endblock %}

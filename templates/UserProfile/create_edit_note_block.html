@@ -1,5 +1,6 @@
 <div class='note-edit-create'>
-    <form class='note-form' enctype="multipart/form-data" method="post">
+
+    <form class='note-form' action="" enctype="multipart/form-data" method="post">
         {% csrf_token %}
         {% for error in errors_type %}
             {{ error }} <br/>
@@ -16,12 +17,10 @@
                 </div>
             </div>
         </div>
-        {% if is_creating %}
-            {{ form_attach.as_p }}
+
+        {{ form_attach.as_p }}
             <input type="submit" value="Create"/>
-        {% else %}
-            <input type="submit" value="Edit"/>
-        {% endif %}
+
 
     </form>
 </div>
