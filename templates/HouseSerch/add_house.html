@@ -1,14 +1,11 @@
 {% extends "base.html" %}
 
 {% block title %}{{ user.username }} | House{% endblock %}
-{% block external %}
-
-{% endblock %}
-
-{% block head %}{{ user.username }} | House{% endblock %}
 
 {% block content %}
 
-    {% include 'HouseSerch/create_edit_house_block.html' %}
+<div class="row justify-content-center">
+	{% include 'HouseSerch/create_edit_house_block.html' %}
+</div>
 
 {% endblock %}

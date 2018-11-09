@@ -1,10 +1,6 @@
 {% extends "base.html" %}
 
 {% block title %}Note {{ note.id }}{% endblock %}
-{% block external %}
-    {% load staticfiles %}
-    <script src="{% static '/js/jquery_3_3_1.min.js' %}"></script>
-{% endblock %}
 {% block head %} {{ house.title }} {% endblock %}
 
 {% block content %}

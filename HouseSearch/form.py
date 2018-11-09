@@ -9,15 +9,45 @@ class HouseForm(forms.ModelForm):
                   'rooms', 'sleeper', 'price', 'activity', 'about']
 
         widgets = {
-            'title': forms.TextInput,
-            'country': forms.Select,
-            'city': forms.TextInput,
-            'address': forms.TextInput,
-            'type': forms.Select(choices=House.HOUSE_TYPE),
-            'rooms': forms.NumberInput,
-            'sleeper': forms.NumberInput,
+            'title': forms.TextInput(attrs={
+                    'class' : 'form-control mb-2',
+                    'placeholder' : 'Title',
+                }),
+            'country': forms.Select(attrs={
+                    'class' : 'form-control mb-2'
+                }),
+            'city': forms.TextInput(attrs={
+                    'class' : 'form-control mb-2',
+                    'placeholder' : 'City',
+                }),
+            'address': forms.TextInput(attrs={
+                    'class' : 'form-control mb-2',
+                    'placeholder' : 'Address',
+                }),
+            'type': forms.Select(choices=House.HOUSE_TYPE, attrs={
+                    'class' : 'form-control mb-2'
+                }),
+            'rooms': forms.NumberInput(attrs={
+                    'class' : 'form-control mb-2',
+                    'min' : 1,
+                    'max' : MAX_ROOMS,
+                }),
+            'sleeper': forms.NumberInput(attrs={
+                    'class' : 'form-control mb-2',
+                    'min' : 1,
+                    'max' : MAX_SLEEPER,
+                }),
 
-            'about': forms.Textarea,
+            'price': forms.NumberInput(attrs={
+                    'class' : 'form-control mb-2 col-4',
+                    'value' : 100,
+                    'min' : 1,
+                    'max' : MAX_PRICE,
+                }),   
+            'about': forms.Textarea(attrs={
+                    'class' : 'form-control mb-2',
+                    'placeholder' : 'About',
+                }),
         }
 
     def save(self, user):
@@ -35,7 +65,9 @@ class PhotoForm(forms.ModelForm):
                                      {'name': 'photo',
                                       'multiple': True,
                                       'required': False,
-                                      'accept': 'image/*'})
+                                      'class' : 'house-edit-images invisible position-absolute',
+                                      'accept': 'image/*'
+                                      })
         }
 
 
